@@ -316,13 +316,18 @@ class Engine(gym.Env, gym.utils.EzPickle):
         self.seed(self._seed)
         self.done = True
 
-    def parse(self, config):
+    def parse(self, config, update=False):
         ''' Parse a config dict - see self.DEFAULT for description '''
-        self.config = deepcopy(self.DEFAULT)
-        self.config.update(deepcopy(config))
-        for key, value in self.config.items():
-            assert key in self.DEFAULT, f'Bad key {key}'
-            setattr(self, key, value)
+        if not update:
+            self.config = deepcopy(self.DEFAULT)
+            self.config.update(deepcopy(config))
+            for key, value in self.config.items():
+                assert key in self.DEFAULT, f'Bad key {key}'
+                setattr(self, key, value)
+        else:
+            for key, value in config.items():
+                assert key in self.DEFAULT, f'Bad key {key}'
+                setattr(self, key, value)
 
     @property
     def sim(self):
