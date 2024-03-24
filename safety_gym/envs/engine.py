@@ -1243,7 +1243,7 @@ class Engine(gym.Env, gym.utils.EzPickle):
     def step(self, action):
         ''' Take a step and return observation, reward, done, and info '''
         action = np.array(action, copy=False)  # Cast to ndarray
-        print(f"safety gym action: {action}")
+        # print(f"safety gym action: {action}")
         assert not self.done, 'Environment must be reset before stepping'
         self.last_action = action
 
