@@ -108,15 +108,15 @@ class Engine(gym.Env, gym.utils.EzPickle):
         # Robot
         'robot_placements': None,  # Robot placements list (defaults to full extents)
         'robot_locations': [],  # Explicitly place robot XY coordinate
-        'robot_keepout': 0.4,  # Needs to be set to match the robot XML used
+        'robot_keepout': 0.0,  # Needs to be set to match the robot XML used
         'robot_base': 'xmls/car.xml',  # Which robot XML to use as the base
         'robot_rot': None,  # Override robot starting angle
 
         # Starting position distribution
         'randomize_layout': True,  # If false, set the random seed before layout to constant
         'build_resample': True,  # If true, rejection sample from valid environments
-        'continue_goal': True,  # If true, draw a new goal after achievement
-        'terminate_resample_failure': True,  # If true, end episode when resampling fails,
+        'continue_goal': False,  # If true, draw a new goal after achievement
+        'terminate_resample_failure': False,  # If true, end episode when resampling fails,
                                              # otherwise, raise a python exception.
         # TODO: randomize starting joint positions
 
@@ -1243,7 +1243,9 @@ class Engine(gym.Env, gym.utils.EzPickle):
     def step(self, action):
         ''' Take a step and return observation, reward, done, and info '''
         action = np.array(action, copy=False)  # Cast to ndarray
+        print(f"safety gym action: {action}")
         assert not self.done, 'Environment must be reset before stepping'
+        self.last_action = action
 
         info = {}
 
