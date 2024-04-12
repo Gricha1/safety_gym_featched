@@ -1177,13 +1177,18 @@ class Engine(gym.Env, gym.utils.EzPickle):
         # Calculate constraint violations
         if self.constrain_hazards:
             cost['cost_hazards'] = 0
+            cost['clearance_is_enough'] = 0
+            clearance_distance = self.hazards_size + self.robot_keepout
             for h_pos in self.hazards_pos:
                 h_dist = self.dist_xy(h_pos)
                 if h_dist <= self.hazards_size:
                     cost['cost_hazards'] += self.hazards_cost * (self.hazards_size - h_dist)
+                if h_dist <= clearance_distance:
+                    cost['clearance_is_enough'] += 1
 
         # Sum all costs into single total cost
         cost['cost'] = sum(v for k, v in cost.items() if k.startswith('cost_'))
+        cost['clearance_is_enough'] = cost['clearance_is_enough'] > 0
 
         # Optionally remove shaping from reward functions.
         if self.constrain_indicator:
