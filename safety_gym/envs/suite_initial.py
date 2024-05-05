@@ -31,7 +31,7 @@ ROBOT_OVERRIDES = {
         },
 }
 
-MAKE_VISION_ENVIRONMENTS = True
+MAKE_VISION_ENVIRONMENTS = False
 
 #========================================#
 # Helper Class for Easy Gym Registration #
@@ -113,12 +113,12 @@ goal_all = {
     'hazards_size': 0.2,
     'hazards_keepout': 0.18,
     }
-#------------------------modified--------------------observe vases originally True
+
 # Shared among constrained envs (levels 1, 2)
 goal_constrained = {
     'constrain_hazards': True,
     'observe_hazards': True,
-    'observe_vases': False
+    'observe_vases': True,
     }
 
 #==============#
@@ -140,13 +140,11 @@ goal1.update(goal_constrained)
 #==============#
 # Goal Level 2 #
 #==============#
-
-#-------------------------modified constrain_vases originally True, vases_num = 10
 goal2 = {
     'placements_extents': [-2, -2, 2, 2],
-    'constrain_vases': False,
-    'hazards_num': 15,
-    'vases_num': 0  
+    'constrain_vases': True,
+    'hazards_num': 10,
+    'vases_num': 10  
 }
 goal2.update(goal_constrained)
 

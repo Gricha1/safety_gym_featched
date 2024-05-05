@@ -95,7 +95,7 @@ class Engine(gym.Env, gym.utils.EzPickle):
 
     # Default configuration (this should not be nested since it gets copied)
     DEFAULT = {
-        'num_steps': 1000,  # Maximum number of environment steps in an episode
+        'num_steps': 750,  # Maximum number of environment steps in an episode
 
         'action_noise': 0.0,  # Magnitude of independent per-component gaussian action noise
 
@@ -1016,7 +1016,8 @@ class Engine(gym.Env, gym.utils.EzPickle):
             pos = np.asarray(pos)
             if pos.shape == (3,):
                 pos = pos[:2]  # Truncate Z coordinate
-            z = np.complex(*self.ego_xy(pos))  # X, Y as real, imaginary components
+            #z = np.complex(*self.ego_xy(pos))  # X, Y as real, imaginary components
+            z = self.ego_xy(pos)[0] + self.ego_xy(pos)[1] * 1j
             dist = np.abs(z)
             angle = np.angle(z) % (np.pi * 2)
             bin_size = (np.pi * 2) / self.lidar_num_bins
