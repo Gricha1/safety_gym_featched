@@ -143,9 +143,13 @@ goal1.update(goal_constrained)
 
 #-------------------------modified constrain_vases originally True, vases_num = 10
 goal2 = {
-    'placements_extents': [-2, -2, 2, 2],
-    'constrain_vases': False,
-    'hazards_num': 15,
+    'placements_extents': [-5, -5, 5, 5],
+    #'robot_locations': [[-5, -5], [-5, 5], [5, 5], [5, -5]],
+    #'goal_locations': [[5, 5], [5, -5], [-5, -5], [-5, 5]],
+    'robot_locations': [[-5, -5]],
+    'goal_locations': [[5, 5]],
+    #'constrain_vases': False,
+    'hazards_num': 100,
     'vases_num': 0  
 }
 goal2.update(goal_constrained)
